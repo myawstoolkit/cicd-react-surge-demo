@@ -1,0 +1,4 @@
+surge token - generates token
+surge whoami - shows current users email
+
+tidy-slave.surge.sh
