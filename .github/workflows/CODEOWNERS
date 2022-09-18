@@ -1,5 +1,6 @@
 * @myawstoolkit
 *.js @myawstoolkit
 *.yml @jeromeski
+*.css @myawstoolkit
 /public/ @myawstoolkit
 
