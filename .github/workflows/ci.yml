@@ -36,7 +36,6 @@ jobs:
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
-
 # --------------------------------------------------------------
 # If you want to generate a new cache key
 # ex. if npm dependencies has changed
