@@ -16,7 +16,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-${{**/*}}
       - name: Use NodeJS
         uses: actions/setup-node@v3
         with:
@@ -36,3 +36,15 @@ jobs:
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+
+# --------------------------------------------------------------
+# If you want to generate a new cache key
+# ex. if npm dependencies has changed
+#     if os has changed
+# use: hashFiles(...) and ${{}} string interpolation
+# ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
+# --------------------------------------------------------------
+# restore-keys
+# extra keys that github uses if github can't find any key
+# ex value: ${{ runner.os }}-node-${{**/*}}
+# ------------------------------------------------------------
