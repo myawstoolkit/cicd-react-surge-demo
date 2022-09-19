@@ -16,7 +16,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
           restore-keys: |
-            ${{ runner.os }}-node-${{'**/*'}}
+            ${{ runner.os }}-node-
       - name: Use NodeJS
         uses: actions/setup-node@v3
         with:
@@ -27,9 +27,20 @@ jobs:
       - run: npm test -- --coverage
         env:
           CI: true
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+      - name: Upload Build Folder
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain tidy-slave.surge.sh
@@ -45,5 +56,5 @@ jobs:
 # --------------------------------------------------------------
 # restore-keys
 # extra keys that github uses if github can't find any key
-# ex value: ${{ runner.os }}-node-${{**/*}}
+# ex value: ${{ runner.os }}-node-
 # ------------------------------------------------------------
